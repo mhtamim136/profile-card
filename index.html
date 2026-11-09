@@ -90,10 +90,12 @@
 
     <!-- Profile -->
     <div class="profile">
-      <div class="avatar-wrap">
+      <!-- The avatar is a real button (like the portfolio's Avatar): click
+           opens the photo lightbox. cursor-zoom-in + focus ring included. -->
+      <button type="button" class="avatar-wrap" id="avatarBtn" aria-label="View photo of Murad Hasan Tamim" aria-haspopup="dialog">
         <img src="your-photo.jpg" alt="Portrait of Murad Hasan Tamim" class="avatar" width="120" height="120" />
         <span class="avatar-dot" title="Open to internships" aria-hidden="true"></span>
-      </div>
+      </button>
       <h1 class="name">Murad Hasan Tamim</h1>
       <p class="username">@mhtamim136</p>
       <p class="bio">CSE student at AIUB, Dhaka</p>
@@ -159,6 +161,18 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Photo lightbox: same behaviour as the portfolio's PhotoLightbox
+       (Instagram-style) — round photo over a dark blurred backdrop, ×
+       button top-right, backdrop click / Escape closes, desktop zoom. -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo of Murad Hasan Tamim" tabindex="-1" hidden>
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close photo">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    <div class="lightbox-photo" id="lightboxPhoto">
+      <img src="your-photo.jpg" alt="Portrait of Murad Hasan Tamim" />
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

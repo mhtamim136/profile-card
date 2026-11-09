@@ -160,5 +160,90 @@ if (finePointer && !reduceMotion) {
   });
 }
 
+// ===== Photo lightbox =====
+// Same behaviour as the portfolio's PhotoLightbox (Instagram-style):
+// round photo over a dark blurred backdrop; × button, backdrop click or
+// Escape closes. Desktop (fine pointer): click the photo zooms
+// 1 → 1.5 → 2 → 1, wheel on the photo zooms continuously [1, 2]; wheel on
+// the backdrop closes. Touch: tap the photo closes, zoom is off.
+// Max zoom 2 is a quality cap (source is 880px, displays at ~560px).
+// Reduced motion: instant open/close/zoom. Focus returns to the avatar.
+const avatarBtn = document.getElementById('avatarBtn');
+const lightbox = document.getElementById('lightbox');
+const lightboxPhoto = document.getElementById('lightboxPhoto');
+const lightboxClose = document.getElementById('lightboxClose');
+let lightboxZoom = 1;
+let lightboxCloseTimer = null;
+
+function setLightboxZoom(z) {
+  lightboxZoom = Math.min(2, Math.max(1, z));
+  lightboxPhoto.style.setProperty('--zoom', lightboxZoom);
+}
+
+function openLightbox() {
+  clearTimeout(lightboxCloseTimer);
+  lightbox.classList.remove('closing');
+  setLightboxZoom(1);
+  lightbox.hidden = false;
+  // Restart the open animation even on repeat opens.
+  lightboxPhoto.style.animation = 'none';
+  void lightboxPhoto.offsetWidth;
+  lightboxPhoto.style.animation = '';
+  const prevOverflow = document.body.style.overflow;
+  lightbox.dataset.prevOverflow = prevOverflow;
+  document.body.style.overflow = 'hidden';
+  lightbox.focus();
+}
+
+function closeLightbox() {
+  if (lightbox.hidden) return;
+  const done = () => {
+    lightbox.hidden = true;
+    lightbox.classList.remove('closing');
+    document.body.style.overflow = lightbox.dataset.prevOverflow || '';
+    avatarBtn.focus();
+  };
+  if (reduceMotion) {
+    done();
+  } else {
+    lightbox.classList.add('closing');
+    lightboxCloseTimer = setTimeout(done, 200);
+  }
+}
+
+avatarBtn.addEventListener('click', openLightbox);
+lightboxClose.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeLightbox();
+});
+// Backdrop click closes (clicks on the photo or the × button stop
+// propagation, so they never reach here).
+lightbox.addEventListener('click', closeLightbox);
+// Wheel on the backdrop closes; wheel on the photo zooms instead.
+lightbox.addEventListener('wheel', closeLightbox, { passive: true });
+lightboxPhoto.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!finePointer) {
+    closeLightbox();
+    return;
+  }
+  setLightboxZoom(lightboxZoom >= 2 ? 1 : lightboxZoom + 0.5);
+});
+lightboxPhoto.addEventListener('wheel', (e) => {
+  if (!finePointer) return;
+  e.stopPropagation();
+  setLightboxZoom(lightboxZoom - e.deltaY * 0.002);
+}, { passive: true });
+// Escape closes; Tab cycles between the dialog and the close button,
+// so focus never escapes to the page behind.
+lightbox.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    if (document.activeElement === lightboxClose) lightbox.focus();
+    else lightboxClose.focus();
+  }
+});
+
 // ===== Footer year (rolls over every Jan 1, no deploy needed) =====
 document.getElementById('year').textContent = new Date().getFullYear();

@@ -35,6 +35,7 @@ It showcases:
 
 - 🌗 **Dark / Light Theme Toggle** — saved in `localStorage`, falls back to the system preference when nothing is saved
 - 📤 **Share Button** — native Web Share API, with copy-link fallback (toast, no `alert()`)
+- 🖼️ **Photo Lightbox** — click the avatar and the portrait pops up large, round (Instagram-style, like the portfolio's PhotoLightbox): dark blurred backdrop, × button top-right, backdrop click / Escape closes; on desktop click the photo to zoom 1 → 1.5 → 2 → 1, or scroll on it to zoom smoothly; on touch, tap the photo to close
 - 🏷️ **Skill Tags** — C++, Java, C#, JavaScript, React, Node.js (the portfolio's highlighted skills) in one balanced flex row with a green-tinted border and room to spare — never a 5+1 orphan wrap
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
