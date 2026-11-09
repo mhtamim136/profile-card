@@ -35,10 +35,10 @@ It showcases:
 
 - 🌗 **Dark / Light Theme Toggle** — saved in `localStorage`, falls back to the system preference when nothing is saved
 - 📤 **Share Button** — native Web Share API, with copy-link fallback (toast, no `alert()`)
-- 🏷️ **Skill Tags** — C++, Java, C#, JavaScript, React, Node.js (the portfolio's highlighted skills) in one balanced flex row with a green-tinted border — never a 5+1 orphan wrap
+- 🏷️ **Skill Tags** — C++, Java, C#, JavaScript, React, Node.js (the portfolio's highlighted skills) in one balanced flex row with a green-tinted border and room to spare — never a 5+1 orphan wrap
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
-- 🟢 **Emerald Hover** — the green fill wipes slowly and smoothly left-to-right across every link button on hover (0.75s ease-in-out, exactly like the reference video); the text turns white 0.3s in, only once the fill reaches it — never white-on-pale-grey; light theme uses a brighter emerald so it never feels deep
+- 🟢 **Emerald Hover** — the green fill wipes slowly and smoothly left-to-right across every link button on hover (0.75s ease-in-out, exactly like the reference video); the text itself wipes white in lockstep with the fill, so it is dark where the button is still pale and white where the green has reached — never unreadable mid-wipe; light theme uses a brighter emerald so it never feels deep
 - 🧲 **Magnetic Cards** — each link card drifts lightly (max 5px) toward the cursor with a smooth proportional follow and springs back on leave (same concept as the portfolio's Magnetic Buttons); off on touch devices and under reduced-motion, and only the hovered card moves so cards can never overlap
 - 🔦 **Cursor Spotlight** — a soft glow follows the mouse across the card (same concept as the portfolio's Cursor Spotlight), sitting behind the content
 - 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot; all disabled under `prefers-reduced-motion`

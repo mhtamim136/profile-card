@@ -293,14 +293,16 @@ button:focus-visible {
 }
 
 /* ===== Skills ===== */
-/* Flex row with a 6px gap: six pills fit one balanced row on desktop, and
-   wrap to a deliberate centred 3+3 on narrow screens — never a 5+1 orphan. */
+/* Flex row with a 5px gap and tight pills: six fit one balanced row on
+   desktop with ~30px to spare (at 11px padding they sat exactly on the wrap
+   breakpoint — 1919px wide wrapped 5+1), and wrap to a deliberate centred
+   3+3 on narrow screens — never a 5+1 orphan. */
 .skills {
   margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .skills span {
@@ -308,7 +310,7 @@ button:focus-visible {
   background: var(--chip-bg);
   color: var(--chip-text);
   border: 1px solid var(--chip-border);
-  padding: 5px 11px;
+  padding: 5px 9px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
@@ -378,18 +380,44 @@ button:focus-visible {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  /* The text turns white 0.3s AFTER the hover starts — exactly when the
-     green fill (0.75s wipe) reaches the centred text. Before this fix the
-     text flipped white instantly while the fill was still at 3–6%, leaving
-     white-on-pale-grey unreadable text for ~0.3s in light theme. */
+  /* Fallback path (browsers without background-clip: text): the text flips
+     white 0.55s in, when the fill is ~90% done. The modern path below
+     replaces this entirely — see the @supports block after this rule. */
   translate: var(--mx, 0px) var(--my, 0px);
-  transition: background-position 0.75s cubic-bezier(0.65, 0, 0.35, 1), color 0.35s ease 0.3s, border-color 0.3s ease;
+  transition: background-position 0.75s cubic-bezier(0.65, 0, 0.35, 1), color 0.2s ease 0.55s, border-color 0.3s ease;
 }
 
 .link-btn:hover {
   background-position: 0 0;
   border-color: var(--btn-hover);
   color: #ffffff;
+}
+
+/* Text follows the fill EXACTLY (no timing race): a second background layer
+   carries the text colour — white on the left, base text colour on the
+   right — clipped to the text itself, wiping with the SAME position, duration
+   and easing as the green fill, in the SAME coordinate system. So the white
+   part of the text is always exactly where the green already is, and the
+   dark part always where the button is still pale. A 0.3s delay could not
+   guarantee that: the live re-check still caught white text at 6–27% fill.
+   This works for the icon too — it is a font glyph, so it is text as well. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .link-btn {
+    background-image:
+      linear-gradient(to right, #ffffff 50%, var(--text) 50%),
+      linear-gradient(to right, var(--btn-hover) 50%, var(--btn-bg) 50%);
+    background-size: 200% 100%, 200% 100%;
+    background-position: 100% 0, 100% 0;
+    -webkit-background-clip: text, border-box;
+    background-clip: text, border-box;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.75s cubic-bezier(0.65, 0, 0.35, 1), border-color 0.3s ease;
+  }
+
+  .link-btn:hover {
+    background-position: 0 0, 0 0;
+  }
 }
 
 .link-btn:active {
