@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!--
+    Custom favicon for the profile card — a mini profile card, no text.
+    The tile uses the same cyan-to-emerald gradient as the avatar ring,
+    so it reads as one identity with the card. Inside: a white card with
+    a gradient avatar circle and two detail lines — the card in miniature.
+    Kept to four shapes so it stays legible at 16px.
+  -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)"/>
+  <rect x="13" y="11" width="38" height="42" rx="8" fill="#ffffff"/>
+  <circle cx="32" cy="25" r="8" fill="url(#g)"/>
+  <rect x="21" y="37" width="22" height="4" rx="2" fill="#0b0e11" opacity="0.8"/>
+  <rect x="25" y="45" width="14" height="4" rx="2" fill="#0b0e11" opacity="0.5"/>
+</svg>
