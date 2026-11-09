@@ -1,44 +1,48 @@
 /* ===== CSS Variables for Dark / Light ===== */
 :root {
-  --bg: #0d0d0d;
-  --card-bg: #1a1a1a;
+  --bg: #0b0e11;
+  --card-bg: #16191d;
   --text: #f0f0f0;
   --sub-text: #aaaaaa;
-  --btn-bg: #262626;
-  --btn-border: #333333;
-  --btn-hover: #2e2e2e;
-  --icon-btn-bg: #262626;
-  --icon-btn-border: #333333;
+  --btn-bg: #23272d;
+  --btn-border: #343a41;
+  --btn-hover: #136e50;
+  --icon-btn-bg: #23272d;
+  --icon-btn-border: #343a41;
   --social-color: #cccccc;
   --social-hover: #ffffff;
   --accent: #0891b2;
-  --accent-btn: #0e7490;
-  --accent-btn-hover: #155e75;
-  --chip-bg: #262626;
+  --chip-bg: #23272d;
   --chip-text: #f0f0f0;
-  --chip-hover-bg: #0e7490;
+  --chip-hover-bg: #136e50;
   --badge-green: #4ade80;
-  --shadow: rgba(0, 0, 0, 0.35);
+  --shadow: rgba(0, 0, 0, 0.45);
   --focus-ring: #38bdf8;
+  --glow-cyan: rgba(8, 145, 178, 0.16);
+  --glow-green: rgba(19, 110, 80, 0.22);
+  --dot-color: rgba(255, 255, 255, 0.055);
 }
 
 [data-theme="light"] {
-  --bg: #f0f0f0;
+  --bg: #eef0f2;
   --card-bg: #ffffff;
   --text: #111111;
   --sub-text: #555555;
-  --btn-bg: #f7f7f7;
-  --btn-border: #dddddd;
-  --btn-hover: #ececec;
-  --icon-btn-bg: #f0f0f0;
-  --icon-btn-border: #cccccc;
+  --btn-bg: #f4f5f7;
+  --btn-border: #dcdfe3;
+  --btn-hover: #136e50;
+  --icon-btn-bg: #ffffff;
+  --icon-btn-border: #dcdfe3;
   --social-color: #444444;
   --social-hover: #000000;
   --chip-bg: #eef2f7;
   --chip-text: #1e293b;
-  --chip-hover-bg: #0e7490;
+  --chip-hover-bg: #136e50;
   --badge-green: #15803d;
-  --shadow: rgba(0, 0, 0, 0.12);
+  --shadow: rgba(15, 23, 42, 0.14);
+  --glow-cyan: rgba(8, 145, 178, 0.12);
+  --glow-green: rgba(19, 110, 80, 0.14);
+  --dot-color: rgba(15, 23, 42, 0.07);
 }
 
 /* ===== Reset ===== */
@@ -54,9 +58,46 @@ body {
   align-items: center;
   justify-content: center;
   background-color: var(--bg);
+  /* Subtle dotted texture, like the video reference */
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 22px 22px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   transition: background-color 0.3s ease;
   padding: 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient glows behind the card — soft, slow, never distracting */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  filter: blur(110px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background: var(--glow-cyan);
+  top: -140px;
+  left: -100px;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+body::after {
+  background: var(--glow-green);
+  bottom: -160px;
+  right: -110px;
+  animation: drift 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(36px, 24px); }
 }
 
 /* Keyboard focus: visible everywhere, never removed without a replacement */
@@ -70,20 +111,51 @@ button:focus-visible {
 .card {
   background: var(--card-bg);
   border: 1px solid var(--btn-border);
-  border-radius: 16px;
-  box-shadow: 0 12px 32px var(--shadow);
+  border-radius: 20px;
+  box-shadow: 0 20px 48px var(--shadow);
   padding: 28px 32px 24px;
   width: 100%;
   max-width: 460px;
   position: relative;
+  z-index: 1;
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  animation: card-in 0.5s ease both;
+  animation: card-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Gradient hairline border around the card */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.55), rgba(16, 185, 129, 0.55) 45%, rgba(255, 255, 255, 0.08) 75%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 @keyframes card-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Staggered entrance: profile, then links one by one, then socials */
+@keyframes rise-in {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.profile { animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+.links > *:nth-child(1) { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both; }
+.links > *:nth-child(2) { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both; }
+.links > *:nth-child(3) { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both; }
+.links > *:nth-child(4) { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both; }
+.links > *:nth-child(5) { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both; }
+.socials { animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both; }
+.footer { animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both; }
 
 /* ===== Top Bar ===== */
 .top-bar {
@@ -96,7 +168,7 @@ button:focus-visible {
   background: var(--icon-btn-bg);
   border: 1px solid var(--icon-btn-border);
   color: var(--text);
-  border-radius: 8px;
+  border-radius: 10px;
   width: 38px;
   height: 38px;
   display: flex;
@@ -104,24 +176,27 @@ button:focus-visible {
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
 .icon-btn:hover {
   background: var(--btn-hover);
-  transform: translateY(-1px);
+  border-color: var(--btn-hover);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(19, 110, 80, 0.35);
 }
 
 .icon-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.92);
 }
 
 .icon-btn i {
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
 }
 
 .icon-btn:hover i {
-  transform: rotate(15deg);
+  transform: rotate(20deg) scale(1.08);
 }
 
 /* ===== Profile ===== */
@@ -133,24 +208,45 @@ button:focus-visible {
   text-align: center;
 }
 
+.avatar-wrap {
+  position: relative;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #06b6d4, #10b981 55%, #06b6d4);
+  margin-bottom: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar-wrap:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.14), 0 10px 28px rgba(16, 185, 129, 0.28);
+}
+
 .avatar {
   width: 96px;
   height: 96px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 14px;
-  border: 3px solid var(--btn-border);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  display: block;
+  border: 3px solid var(--card-bg);
 }
 
-.avatar:hover {
-  transform: scale(1.04);
-  border-color: var(--accent);
+.avatar-dot {
+  position: absolute;
+  right: 4px;
+  bottom: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2.5px solid var(--card-bg);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .name {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 700;
+  letter-spacing: 0.2px;
   color: var(--text);
   margin-bottom: 4px;
 }
@@ -165,15 +261,6 @@ button:focus-visible {
   font-size: 14px;
   line-height: 1.5;
   color: var(--sub-text);
-  max-width: 36ch;
-}
-
-.learning {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--sub-text);
-  margin-top: 8px;
-  max-width: 40ch;
 }
 
 /* ===== Skills ===== */
@@ -185,37 +272,28 @@ button:focus-visible {
   display: inline-block;
   background: var(--chip-bg);
   color: var(--chip-text);
-  padding: 5px 12px;
+  border: 1px solid var(--btn-border);
+  padding: 5px 13px;
   border-radius: 20px;
   font-size: 12px;
   margin: 4px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: default;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .skills span:hover {
   background: var(--chip-hover-bg);
+  border-color: var(--chip-hover-bg);
   color: #ffffff;
   transform: translateY(-2px);
-}
-
-/* Live GitHub stats — only shown when the API answers */
-.stats {
-  font-size: 12.5px;
-  color: var(--sub-text);
-  margin-top: 10px;
-}
-
-.stats strong {
-  color: var(--text);
-  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(19, 110, 80, 0.3);
 }
 
 .open-badge {
   font-size: 11px;
   letter-spacing: 0.5px;
-  margin-top: 10px;
+  margin-top: 12px;
   color: var(--badge-green);
   font-weight: 600;
   display: flex;
@@ -237,10 +315,11 @@ button:focus-visible {
 }
 
 /* ===== Link Buttons ===== */
+/* Hover effect from the reference video: the whole button fills emerald green */
 .links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 28px;
 }
 
@@ -249,63 +328,58 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 20px;
+  padding: 15px 20px;
   background: var(--btn-bg);
   border: 1px solid var(--btn-border);
-  border-radius: 10px;
+  border-radius: 12px;
   color: var(--text);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 14.5px;
+  font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .link-btn:hover {
   background: var(--btn-hover);
-  border-color: var(--accent);
+  border-color: var(--btn-hover);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--shadow);
+  box-shadow: 0 10px 24px rgba(19, 110, 80, 0.35);
 }
 
 .link-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.985);
 }
 
 .link-btn i {
-  transition: transform 0.2s ease;
+  font-size: 15px;
+  transition: transform 0.3s ease;
 }
 
 .link-btn:hover i {
-  transform: translateX(2px);
+  transform: translateX(3px) scale(1.1);
 }
 
-/* Primary action: portfolio */
-.link-btn-primary {
-  background: var(--accent-btn);
-  border-color: var(--accent-btn);
-  color: #ffffff;
-  font-weight: 600;
+/* Shine sweep across the button on hover */
+.link-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
 }
 
-.link-btn-primary:hover {
-  background: var(--accent-btn-hover);
-  border-color: var(--accent-btn-hover);
-}
-
-/* Hire row: mailto link + copy-email button */
-.link-row {
-  display: flex;
-  gap: 10px;
-}
-
-.link-row-main {
-  flex: 1;
-}
-
-.link-row-copy {
-  flex: 0 0 auto;
-  padding: 13px 16px;
+.link-btn:hover::after {
+  left: 130%;
 }
 
 /* ===== Social Icons ===== */
@@ -328,12 +402,12 @@ button:focus-visible {
   color: var(--social-color);
   font-size: 16px;
   text-decoration: none;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .socials a:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px var(--shadow);
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 10px 20px var(--shadow);
   color: #ffffff;
 }
 
@@ -342,12 +416,12 @@ button:focus-visible {
 }
 
 /* Brand colours on hover (order matches index.html) */
-.socials a:nth-child(1):hover { background: #0891b2; } /* Website */
-.socials a:nth-child(2):hover { background: #1877f2; } /* Facebook */
-.socials a:nth-child(3):hover { background: #e1306c; } /* Instagram */
-.socials a:nth-child(4):hover { background: #000000; } /* X */
-.socials a:nth-child(5):hover { background: #5865f2; } /* Discord */
-.socials a:nth-child(6):hover { background: #333333; } /* GitHub */
+.socials a:nth-child(1):hover { background: #0891b2; border-color: #0891b2; } /* Website */
+.socials a:nth-child(2):hover { background: #1877f2; border-color: #1877f2; } /* Facebook */
+.socials a:nth-child(3):hover { background: #e1306c; border-color: #e1306c; } /* Instagram */
+.socials a:nth-child(4):hover { background: #000000; border-color: #000000; } /* X */
+.socials a:nth-child(5):hover { background: #5865f2; border-color: #5865f2; } /* Discord */
+.socials a:nth-child(6):hover { background: #333333; border-color: #333333; } /* GitHub */
 
 /* ===== Footer ===== */
 .footer {
@@ -387,6 +461,12 @@ button:focus-visible {
   .card {
     padding: 20px 18px;
   }
+
+  body::before,
+  body::after {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 /* ===== Reduced motion: everything still, instantly ===== */
@@ -397,7 +477,11 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
   }
 
-  .card {
+  .card,
+  .profile,
+  .links > *,
+  .socials,
+  .footer {
     animation: none;
   }
 }

@@ -62,14 +62,6 @@ shareBtn.addEventListener('click', async () => {
   }
 });
 
-// ===== Copy Email =====
-const copyEmailBtn = document.getElementById('copyEmailBtn');
-const EMAIL = 'mhtamim136@gmail.com';
-
-copyEmailBtn.addEventListener('click', () => {
-  copyText(EMAIL, 'Email address copied to clipboard!');
-});
-
 async function copyText(text, successMessage) {
   try {
     await navigator.clipboard.writeText(text);
@@ -92,29 +84,6 @@ async function copyText(text, successMessage) {
     document.body.removeChild(ta);
   }
 }
-
-// ===== Live GitHub stats (graceful: hidden when the API does not answer) =====
-const ghStats = document.getElementById('ghStats');
-
-fetch('https://api.github.com/users/mhtamim136')
-  .then((res) => {
-    if (!res.ok) throw new Error('GitHub API: ' + res.status);
-    return res.json();
-  })
-  .then((data) => {
-    if (typeof data.public_repos !== 'number') return;
-    const repos = '<strong>' + data.public_repos + '</strong> public repos';
-    const followers = typeof data.followers === 'number'
-      ? ' · <strong>' + data.followers + '</strong> followers'
-      : '';
-    ghStats.innerHTML = repos + followers;
-    ghStats.hidden = false;
-  })
-  .catch(() => {
-    // Rate-limited or offline: leave the stats hidden rather than
-    // showing a stale or invented number.
-    ghStats.hidden = true;
-  });
 
 // ===== Footer year (rolls over every Jan 1, no deploy needed) =====
 document.getElementById('year').textContent = new Date().getFullYear();

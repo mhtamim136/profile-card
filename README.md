@@ -26,9 +26,8 @@
 
 It showcases:
 - Who he is and what he does
-- Core skills and what he is currently learning
+- Core skills
 - Links to his portfolio, projects, resume and social profiles
-- Live GitHub stats (public repos & followers, fetched from the GitHub API)
 
 ---
 
@@ -36,12 +35,11 @@ It showcases:
 
 - 🌗 **Dark / Light Theme Toggle** — saved in `localStorage`, falls back to the system preference when nothing is saved
 - 📤 **Share Button** — native Web Share API, with copy-link fallback (toast, no `alert()`)
-- 📋 **Copy Email** — one-click copy of the contact email, next to the Hire button
-- 📊 **Live GitHub Stats** — public repo & follower counts from `api.github.com`; the line hides itself if the API is unavailable instead of showing a stale number
-- 🏷️ **Skill Tags** — C++, Java, C#, DSA, plus a "Currently learning" line (Machine Learning · Computer Vision · .NET)
+- 🏷️ **Skill Tags** — C++, Java, C#, DSA
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
-- 🎞️ **Subtle Motion** — card entrance, hover lift on buttons & socials, avatar zoom, pulsing availability dot; all disabled under `prefers-reduced-motion`
+- 🟢 **Emerald Hover** — every link button fills emerald green on hover, with a shine sweep and a soft lift (see the reference: buttons rest dark, hover turns green)
+- 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot; all disabled under `prefers-reduced-motion`
 - 📱 **Fully Responsive** — looks great on mobile, tablet, and desktop
 - ♿ **Accessible** — semantic HTML (`main`, `nav`), `aria-label`s on icon-only buttons, visible keyboard focus, alt text on the photo
 - 🔍 **Search-ready** — meta description, canonical URL, Open Graph & X cards, and `Person` JSON-LD so Google and AI search can tell whose card this is; `llms.txt` and `sitemap.xml` included
@@ -55,7 +53,7 @@ It showcases:
 |---|---|
 | **HTML5** | Structure, semantic markup, SEO meta & JSON-LD |
 | **CSS3** | Styling, CSS variables for theming, responsive layout, animations |
-| **Vanilla JavaScript** | Theme toggle, share/copy, live GitHub stats, dynamic year |
+| **Vanilla JavaScript** | Theme toggle, share/copy, dynamic year |
 | **Font Awesome 6** (CDN) | Icons (share, sun/moon, social) |
 | **GitHub Pages** | Hosting & deployment |
 
@@ -67,7 +65,7 @@ It showcases:
 profile-card/
 ├── index.html        # Card structure, all links, SEO meta + Person JSON-LD
 ├── style.css         # All styles: themes, animations, responsive, reduced-motion
-├── script.js         # Theme toggle + share/copy + live GitHub stats
+├── script.js         # Theme toggle + share button logic
 ├── your-photo.jpg    # Profile photo
 ├── llms.txt          # Plain-text identity summary for AI search / crawlers
 ├── sitemap.xml       # Single-URL sitemap for the card page
