@@ -383,18 +383,13 @@ button:focus-visible {
      text flipped white instantly while the fill was still at 3–6%, leaving
      white-on-pale-grey unreadable text for ~0.3s in light theme. */
   translate: var(--mx, 0px) var(--my, 0px);
-  transition: background-position 0.75s cubic-bezier(0.65, 0, 0.35, 1), color 0.35s ease 0.3s, border-color 0.3s ease, opacity 0.3s ease;
+  transition: background-position 0.75s cubic-bezier(0.65, 0, 0.35, 1), color 0.35s ease 0.3s, border-color 0.3s ease;
 }
 
 .link-btn:hover {
   background-position: 0 0;
   border-color: var(--btn-hover);
   color: #ffffff;
-}
-
-/* While one card is hovered, the others fade a little so it stands out */
-.links:hover .link-btn:not(:hover) {
-  opacity: 0.55;
 }
 
 .link-btn:active {
