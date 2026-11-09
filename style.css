@@ -252,6 +252,7 @@ button:focus-visible {
 .avatar-wrap:hover {
   transform: scale(1.05);
   box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.14), 0 10px 28px rgba(16, 185, 129, 0.28);
+  cursor: zoom-in;
 }
 
 .avatar {
@@ -261,6 +262,9 @@ button:focus-visible {
   object-fit: cover;
   display: block;
   border: 3px solid var(--card-bg);
+  /* Explicit (the button already sets it): the cursor must be zoom-in
+     over the photo itself, not just the ring around it. */
+  cursor: zoom-in;
 }
 
 .avatar-dot {
