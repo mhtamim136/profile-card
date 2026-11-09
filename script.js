@@ -93,15 +93,20 @@ const finePointer = window.matchMedia('(pointer: fine)').matches;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (finePointer && !reduceMotion) {
-  // Magnetic: a card drifts a few px toward the cursor and springs back.
-  // translate() reads --mx / --my, so the lerp below is the only smoothing.
-  const magnetize = (el, maxShift) => {
+  // Magnetic: a card drifts lightly toward the cursor and springs back.
+  // The offset is NORMALISED to the cursor's position inside the button
+  // (-1 at one edge, +1 at the other), so the follow is proportional and
+  // smooth across the whole button. The old version multiplied the raw
+  // pixel offset, which saturated almost everywhere — dead plateaus at the
+  // edges and one sudden jump near the centre. translate() reads --mx / --my,
+  // so the lerp below is the only smoothing.
+  const magnetize = (el, maxX, maxY) => {
     let raf = null;
     let targetX = 0, targetY = 0, curX = 0, curY = 0;
 
     const render = () => {
-      curX += (targetX - curX) * 0.22;
-      curY += (targetY - curY) * 0.22;
+      curX += (targetX - curX) * 0.12;
+      curY += (targetY - curY) * 0.12;
       el.style.setProperty('--mx', curX.toFixed(2) + 'px');
       el.style.setProperty('--my', curY.toFixed(2) + 'px');
       if (Math.abs(targetX - curX) > 0.05 || Math.abs(targetY - curY) > 0.05) {
@@ -118,10 +123,10 @@ if (finePointer && !reduceMotion) {
 
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
-      const relX = e.clientX - (r.left + r.width / 2);
-      const relY = e.clientY - (r.top + r.height / 2);
-      targetX = Math.max(-maxShift, Math.min(maxShift, relX * 0.3));
-      targetY = Math.max(-maxShift, Math.min(maxShift, relY * 0.4));
+      const nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
+      const ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
+      targetX = nx * maxX;
+      targetY = ny * maxY;
       kick();
     });
     el.addEventListener('mouseleave', () => {
@@ -131,9 +136,9 @@ if (finePointer && !reduceMotion) {
     });
   };
 
-  // 10px max shift: only the hovered card moves, and the gaps are 12px,
-  // so a card can never reach its neighbour, let alone overlap it.
-  document.querySelectorAll('.link-btn').forEach((b) => magnetize(b, 10));
+  // Light touch only: 5px sideways, 4px up/down. Only the hovered card
+  // moves, and the gaps are 12px, so a card can never reach its neighbour.
+  document.querySelectorAll('.link-btn').forEach((b) => magnetize(b, 5, 4));
 
   // Cursor spotlight: a soft glow follows the mouse across the card.
   const card = document.querySelector('.card');
