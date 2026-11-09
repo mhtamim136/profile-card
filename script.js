@@ -2,10 +2,12 @@
 const themeBtn = document.getElementById('themeBtn');
 const html = document.documentElement;
 
-// Load saved theme - default is LIGHT
-const savedTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
+// Saved theme wins; otherwise follow the device (system) preference.
+const savedTheme = localStorage.getItem('theme');
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const initialTheme = savedTheme || systemTheme;
+html.setAttribute('data-theme', initialTheme);
+updateThemeIcon(initialTheme);
 
 themeBtn.addEventListener('click', () => {
   const current = html.getAttribute('data-theme');
@@ -16,31 +18,103 @@ themeBtn.addEventListener('click', () => {
 });
 
 function updateThemeIcon(theme) {
+  // Show the icon for the theme you would switch TO.
   themeBtn.innerHTML = theme === 'dark'
-    ? '<i class="fa-solid fa-sun"></i>'
-    : '<i class="fa-solid fa-moon"></i>';
+    ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+    : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+}
+
+// ===== Toast (replaces alert()) =====
+const toast = document.getElementById('toast');
+let toastTimer;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.hidden = false;
+  // Restart the transition so it animates even on repeat clicks.
+  requestAnimationFrame(() => toast.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+    toast.hidden = true;
+  }, 2500);
 }
 
 // ===== Share Button =====
 const shareBtn = document.getElementById('shareBtn');
+const PROFILE_URL = 'https://mhtamim136.github.io/profile-card/';
 
 shareBtn.addEventListener('click', async () => {
   const shareData = {
-    title: 'Mhtamim - Profile',
+    title: 'Murad Hasan Tamim — Profile Card',
     text: 'Check out my profile!',
-    url: 'https://mhtamim136.github.io/'
+    url: PROFILE_URL
   };
 
   if (navigator.share) {
     try {
       await navigator.share(shareData);
     } catch (err) {
-      // user cancelled
+      // User cancelled the share sheet — nothing to do.
     }
   } else {
-    // Fallback: copy link to clipboard
-    navigator.clipboard.writeText(shareData.url).then(() => {
-      alert('Link copied to clipboard!');
-    });
+    copyText(PROFILE_URL, 'Profile link copied to clipboard!');
   }
 });
+
+// ===== Copy Email =====
+const copyEmailBtn = document.getElementById('copyEmailBtn');
+const EMAIL = 'mhtamim136@gmail.com';
+
+copyEmailBtn.addEventListener('click', () => {
+  copyText(EMAIL, 'Email address copied to clipboard!');
+});
+
+async function copyText(text, successMessage) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast(successMessage);
+  } catch (err) {
+    // Clipboard API unavailable (e.g. non-secure context): fall back to a
+    // temporary textarea + execCommand, then to showing the value.
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(successMessage);
+    } catch (e) {
+      showToast(text);
+    }
+    document.body.removeChild(ta);
+  }
+}
+
+// ===== Live GitHub stats (graceful: hidden when the API does not answer) =====
+const ghStats = document.getElementById('ghStats');
+
+fetch('https://api.github.com/users/mhtamim136')
+  .then((res) => {
+    if (!res.ok) throw new Error('GitHub API: ' + res.status);
+    return res.json();
+  })
+  .then((data) => {
+    if (typeof data.public_repos !== 'number') return;
+    const repos = '<strong>' + data.public_repos + '</strong> public repos';
+    const followers = typeof data.followers === 'number'
+      ? ' · <strong>' + data.followers + '</strong> followers'
+      : '';
+    ghStats.innerHTML = repos + followers;
+    ghStats.hidden = false;
+  })
+  .catch(() => {
+    // Rate-limited or offline: leave the stats hidden rather than
+    // showing a stale or invented number.
+    ghStats.hidden = true;
+  });
+
+// ===== Footer year (rolls over every Jan 1, no deploy needed) =====
+document.getElementById('year').textContent = new Date().getFullYear();

@@ -2,131 +2,165 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mhtamim - Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Murad Hasan Tamim — CSE Student &amp; Web Developer | Profile Card</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Murad Hasan Tamim (@mhtamim136) — CSE student at AIUB, Dhaka, building practical web apps. Currently exploring Machine Learning, Computer Vision and .NET. Portfolio, projects, resume and social links in one place." />
+  <meta name="author" content="Murad Hasan Tamim" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f0f0f0" media="(prefers-color-scheme: light)" />
+  <link rel="canonical" href="https://mhtamim136.github.io/profile-card/" />
+
+  <!-- Favicon: inline SVG, no extra file needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230891b2'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3EMT%3C/text%3E%3C/svg%3E" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Murad Hasan Tamim — CSE Student &amp; Web Developer" />
+  <meta property="og:description" content="CSE student at AIUB, Dhaka — building practical web apps. Currently exploring Machine Learning, Computer Vision and .NET. Open to internships." />
+  <meta property="og:url" content="https://mhtamim136.github.io/profile-card/" />
+  <meta property="og:site_name" content="Murad Hasan Tamim — Profile Card" />
+  <meta property="og:image" content="https://mhtamim136.github.io/profile-card/your-photo.jpg" />
+  <meta property="og:image:alt" content="Portrait of Murad Hasan Tamim" />
+  <meta property="profile:first_name" content="Murad" />
+  <meta property="profile:last_name" content="Hasan Tamim" />
+  <meta property="profile:username" content="mhtamim136" />
+
+  <!-- X (Twitter) Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@mhtamim136" />
+  <meta name="twitter:creator" content="@mhtamim136" />
+  <meta name="twitter:title" content="Murad Hasan Tamim — CSE Student &amp; Web Developer" />
+  <meta name="twitter:description" content="CSE student at AIUB, Dhaka — building practical web apps. Currently exploring Machine Learning, Computer Vision and .NET." />
+  <meta name="twitter:image" content="https://mhtamim136.github.io/profile-card/your-photo.jpg" />
+  <meta name="twitter:image:alt" content="Portrait of Murad Hasan Tamim" />
+
+  <!-- Structured data: lets Google / AI search understand whose card this is -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://mhtamim136.vercel.app/#person",
+    "name": "Murad Hasan Tamim",
+    "alternateName": "mhtamim136",
+    "url": "https://mhtamim136.vercel.app/",
+    "image": "https://mhtamim136.github.io/profile-card/your-photo.jpg",
+    "jobTitle": "CSE Student & Web Developer",
+    "description": "CSE student at AIUB, Dhaka, building practical web apps. Currently exploring Machine Learning, Computer Vision and .NET. Open to internships.",
+    "affiliation": {
+      "@type": "EducationalOrganization",
+      "name": "American International University-Bangladesh (AIUB)"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dhaka",
+      "addressCountry": "BD"
+    },
+    "email": "mailto:mhtamim136@gmail.com",
+    "knowsAbout": ["Web Development", "Machine Learning", "Computer Vision", "Data Mining", ".NET", "C++", "Java", "C#", "Data Structures and Algorithms"],
+    "sameAs": [
+      "https://github.com/mhtamim136",
+      "https://x.com/mhtamim136",
+      "https://www.facebook.com/mhtamim136/",
+      "https://www.instagram.com/mhtamim136",
+      "https://mhtamim136.github.io/profile-card/"
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Font Awesome for icons (CDN dependency) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <div class="card">
+  <main class="card">
 
     <!-- Top buttons: Share (left) & Theme toggle (right) -->
     <div class="top-bar">
-      <button class="icon-btn" id="shareBtn" title="Share">
-        <i class="fa-solid fa-share-nodes"></i>
+      <button class="icon-btn" id="shareBtn" type="button" title="Share this profile" aria-label="Share this profile">
+        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
       </button>
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">
-        <i class="fa-solid fa-sun"></i>
+      <button class="icon-btn" id="themeBtn" type="button" title="Toggle theme" aria-label="Toggle dark and light theme">
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
       </button>
     </div>
 
     <!-- Profile -->
     <div class="profile">
-      <img src="your-photo.jpg" alt="Profile Photo" class="avatar" />
+      <img src="your-photo.jpg" alt="Portrait of Murad Hasan Tamim" class="avatar" width="96" height="96" />
       <h1 class="name">Murad Hasan Tamim</h1>
       <p class="username">@mhtamim136</p>
-      <p class="bio">CSE Student | Web Developer</p>
-<div class="skills">
-    <span>C++</span>
-    <span>Java</span>
-    <span>C#</span>
-    <span>DSA</span>
-</div>
- <p class="open-badge">Open to Internships & Freelance</p>
+      <p class="bio">CSE student at AIUB (Information Systems), Dhaka — building practical web apps.</p>
+      <p class="learning">Currently learning: Machine Learning · Computer Vision · .NET</p>
+      <div class="skills" aria-label="Core skills">
+        <span>C++</span>
+        <span>Java</span>
+        <span>C#</span>
+        <span>DSA</span>
+      </div>
+      <!-- Filled by script.js from the public GitHub profile; hidden if the request fails -->
+      <p class="stats" id="ghStats" hidden aria-live="polite"></p>
+      <p class="open-badge"><span class="dot" aria-hidden="true"></span>Open to Internships &amp; Freelance</p>
     </div>
-   
-
-
-    
 
     <!-- Buttons -->
-    <div class="links">
-
-      <a href="Resume/Resume-MHTamim.pdf" 
-   target="_blank" 
-   class="link-btn">
-   <i class="fa-solid fa-file-arrow-down"></i> View Resume
-</a>
-
-      <a href="https://github.com/mhtamim136"    target="_blank" 
-   rel="noopener noreferrer" class="link-btn">
-        <i class="fa-brands fa-github"></i> Visit my GitHub Profile
+    <nav class="links" aria-label="Profile links">
+      <a href="https://mhtamim136.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-btn link-btn-primary">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i> Visit My Portfolio
       </a>
 
-      <!-- <a href="#" class="link-btn">
-        <i class="fa-regular fa-heart"></i> Sponsor me on GitHub
-      </a> -->
+      <a href="Resume/Resume-MHTamim.pdf" target="_blank" rel="noopener noreferrer" class="link-btn">
+        <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> View Resume
+      </a>
 
-<a href="mailto:mhtamim136@gmail.com?subject=Freelance%20Project%20Inquiry" class="link-btn">
-  <i class="fa-regular fa-envelope"></i> Hire me for Freelancing
-</a>
+      <a href="https://github.com/mhtamim136" target="_blank" rel="noopener noreferrer" class="link-btn">
+        <i class="fa-brands fa-github" aria-hidden="true"></i> Visit my GitHub Profile
+      </a>
 
-      <!-- <a href="#" class="link-btn">
-        <i class="fa-brands fa-youtube"></i> Subscribe my YouTube Channel
-      </a> -->
-      
-<a href="https://github.com/mhtamim136?tab=repositories" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="link-btn">
-  <i class="fa-regular fa-bookmark"></i> Explore My Repositories
-</a>
+      <div class="link-row">
+        <a href="mailto:mhtamim136@gmail.com?subject=Freelance%20Project%20Inquiry" class="link-btn link-row-main">
+          <i class="fa-regular fa-envelope" aria-hidden="true"></i> Hire me for Freelancing
+        </a>
+        <button class="link-btn link-row-copy" id="copyEmailBtn" type="button" title="Copy email address" aria-label="Copy email address mhtamim136@gmail.com">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i>
+        </button>
+      </div>
 
-
-
-<a href="#" class="link-btn">
-   <i class="fa-solid fa-globe"></i> Portfolio — Coming Soon
-
-</a>
-
-
-
-    </div>
-
-
-
+      <a href="https://github.com/mhtamim136?tab=repositories" target="_blank" rel="noopener noreferrer" class="link-btn">
+        <i class="fa-regular fa-bookmark" aria-hidden="true"></i> Explore My Repositories
+      </a>
+    </nav>
 
     <!-- Social Icons -->
     <div class="socials">
-      <!-- <a href="#" title="Website"><i class="fa-solid fa-globe"></i></a> -->
-  <a href="https://www.facebook.com/mhtamim136/"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="Facebook">
-     <i class="fa-brands fa-facebook-f"></i>
-  </a>
-
-  <a href="https://www.instagram.com/mhtamim136"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="Instagram">
-     <i class="fa-brands fa-instagram"></i>
-  </a>
-
-  <a href="https://x.com/tamim_136"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="X / Twitter">
-     <i class="fa-brands fa-x-twitter"></i>
-  </a>
-
-  <a href="https://discordapp.com/users/1148815562080800900"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="Discord">
-     <i class="fa-brands fa-discord"></i>
-  </a>
-
-  <a href="https://github.com/mhtamim136"
-     target="_blank"
-     rel="noopener noreferrer"
-     title="GitHub">
-     <i class="fa-brands fa-github"></i>
-  </a>
+      <a href="https://mhtamim136.vercel.app/" target="_blank" rel="noopener noreferrer" title="Website — Portfolio" aria-label="Website — Portfolio">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.facebook.com/mhtamim136/" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.instagram.com/mhtamim136" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+      </a>
+      <a href="https://x.com/mhtamim136" target="_blank" rel="noopener noreferrer" title="X / Twitter" aria-label="X / Twitter">
+        <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+      </a>
+      <a href="https://discord.com/users/1148815562080800900" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+        <i class="fa-brands fa-discord" aria-hidden="true"></i>
+      </a>
+      <a href="https://github.com/mhtamim136" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+      </a>
     </div>
 
-  </div>
+    <footer class="footer">
+      © <span id="year">2026</span> Murad Hasan Tamim · Dhaka, Bangladesh
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script src="script.js"></script>
 </body>

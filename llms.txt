@@ -1,0 +1,32 @@
+# Murad Hasan Tamim — Profile Card
+
+> A single-page profile card for Murad Hasan Tamim (@mhtamim136): portfolio, resume, projects and social links in one place.
+> Live: https://mhtamim136.github.io/profile-card/
+
+## Who this is
+
+- Name: Murad Hasan Tamim
+- Handle: @mhtamim136 (GitHub, X, Facebook, Instagram)
+- Location: Dhaka, Bangladesh
+- Education: BSc in Computer Science and Engineering (CSE), American International University-Bangladesh (AIUB); major: Information Systems
+- Role: CSE student and web developer; open to internships and freelance work
+- Email: mhtamim136@gmail.com
+- Main portfolio: https://mhtamim136.vercel.app/
+- GitHub: https://github.com/mhtamim136
+- X (Twitter): https://x.com/mhtamim136 (note: the old handle @tamim_136 is no longer his)
+- Facebook: https://www.facebook.com/mhtamim136/
+- Instagram: https://www.instagram.com/mhtamim136
+- Discord: https://discord.com/users/1148815562080800900
+
+## What he does
+
+- Builds practical web apps with clean UI and strong logic.
+- Core skills: C++, Java, C#, Data Structures and Algorithms (DSA).
+- Currently learning: Machine Learning, Deep Learning, Computer Vision, Data Mining and Warehousing, .NET.
+- Resume: https://mhtamim136.github.io/profile-card/Resume/Resume-MHTamim.pdf
+
+## This page
+
+- A static profile card (HTML, CSS, vanilla JavaScript) hosted on GitHub Pages.
+- Features: dark/light theme (saved, falls back to system preference), native share, copy-email button, live GitHub repo/follower counts, reduced-motion support.
+- The canonical source of truth for his work is his portfolio at https://mhtamim136.vercel.app/ — this card only links to it.

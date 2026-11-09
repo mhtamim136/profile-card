@@ -2,7 +2,7 @@
 
 # 🪪 Profile Card
 
-### A clean, responsive digital profile card with dark mode & share support
+### A clean, responsive digital profile card — portfolio, resume, projects & socials in one place
 
 [![Live Preview](https://img.shields.io/badge/🔗_Live_Preview-mhtamim136.github.io/profile--card-4f46e5?style=for-the-badge)](https://mhtamim136.github.io/profile-card/)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
@@ -22,26 +22,30 @@
 
 ## 📌 About
 
-**Profile Card** is a minimal, fully responsive single-page profile card designed to serve as a quick digital identity hub — linking to my portfolio, projects, and social media in one clean interface.
+**Profile Card** is a minimal, fully responsive single-page profile card for **Murad Hasan Tamim** — a quick digital identity hub linking to his portfolio, projects, resume and social profiles in one clean interface.
 
 It showcases:
-- Who I am and what I do
-- My core skills
-- Links to my websites, projects, and social profiles
-- A downloadable resume
+- Who he is and what he does
+- Core skills and what he is currently learning
+- Links to his portfolio, projects, resume and social profiles
+- Live GitHub stats (public repos & followers, fetched from the GitHub API)
 
 ---
 
 ## ✨ Features
 
-- 🌗 **Dark / Light Theme Toggle** — persisted via `localStorage`
-- 📤 **Share Button** — uses native Web Share API for easy link sharing
-- 🏷️ **Skill Tags** — C++, Java, C#, DSA
-- 🔗 **Quick Links** — portfolio, projects, and social links at a glance
-- 📄 **Resume Download** — direct access to CV
+- 🌗 **Dark / Light Theme Toggle** — saved in `localStorage`, falls back to the system preference when nothing is saved
+- 📤 **Share Button** — native Web Share API, with copy-link fallback (toast, no `alert()`)
+- 📋 **Copy Email** — one-click copy of the contact email, next to the Hire button
+- 📊 **Live GitHub Stats** — public repo & follower counts from `api.github.com`; the line hides itself if the API is unavailable instead of showing a stale number
+- 🏷️ **Skill Tags** — C++, Java, C#, DSA, plus a "Currently learning" line (Machine Learning · Computer Vision · .NET)
+- 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
+- 📄 **Resume** — direct link to the CV PDF
+- 🎞️ **Subtle Motion** — card entrance, hover lift on buttons & socials, avatar zoom, pulsing availability dot; all disabled under `prefers-reduced-motion`
 - 📱 **Fully Responsive** — looks great on mobile, tablet, and desktop
-- ♿ **Accessible** — semantic HTML with proper `aria` labels and focus states
-- ⚡ **Zero Dependencies** — pure HTML, CSS, and vanilla JavaScript
+- ♿ **Accessible** — semantic HTML (`main`, `nav`), `aria-label`s on icon-only buttons, visible keyboard focus, alt text on the photo
+- 🔍 **Search-ready** — meta description, canonical URL, Open Graph & X cards, and `Person` JSON-LD so Google and AI search can tell whose card this is; `llms.txt` and `sitemap.xml` included
+- ⚡ **No Build Step** — pure HTML, CSS, and vanilla JavaScript (Font Awesome loaded from CDN for icons)
 
 ---
 
@@ -49,10 +53,10 @@ It showcases:
 
 | Technology | Purpose |
 |---|---|
-| **HTML5** | Structure & semantic markup |
-| **CSS3** | Styling, CSS variables for theming, responsive layout |
-| **Vanilla JavaScript** | Theme toggle, share functionality, localStorage |
-| **Font Awesome 6** | Icons (share, sun/moon, social) |
+| **HTML5** | Structure, semantic markup, SEO meta & JSON-LD |
+| **CSS3** | Styling, CSS variables for theming, responsive layout, animations |
+| **Vanilla JavaScript** | Theme toggle, share/copy, live GitHub stats, dynamic year |
+| **Font Awesome 6** (CDN) | Icons (share, sun/moon, social) |
 | **GitHub Pages** | Hosting & deployment |
 
 ---
@@ -61,13 +65,26 @@ It showcases:
 
 ```
 profile-card/
-├── index.html        # Main HTML — card structure & all links
-├── style.css         # All styles including dark/light theme via CSS variables
-├── script.js         # Theme toggle + share button logic
+├── index.html        # Card structure, all links, SEO meta + Person JSON-LD
+├── style.css         # All styles: themes, animations, responsive, reduced-motion
+├── script.js         # Theme toggle + share/copy + live GitHub stats
 ├── your-photo.jpg    # Profile photo
-├── Resume/           # Resume / CV file
+├── llms.txt          # Plain-text identity summary for AI search / crawlers
+├── sitemap.xml       # Single-URL sitemap for the card page
+├── Resume/           # Resume / CV file (Resume-MHTamim.pdf)
 └── LICENSE           # MIT License
 ```
+
+---
+
+## 🔍 SEO Notes
+
+- **Canonical URL:** `https://mhtamim136.github.io/profile-card/`
+- **Person schema:** `Person` JSON-LD in `index.html` — name, affiliation (AIUB), `sameAs` profiles (GitHub, X, Facebook, Instagram), `knowsAbout` skills. This is what lets Google / AI search connect this page to Murad Hasan Tamim.
+- **Social previews:** Open Graph + X cards use the profile photo (`your-photo.jpg`).
+- **X handle:** `@mhtamim136` — the old handle `@tamim_136` is no longer his and returns 404.
+- **Main site:** the portfolio button and the Website icon point to the live portfolio at `https://mhtamim136.vercel.app/` (the `github.io` site is the backup).
+- **Limits:** this repo is a subpath of `mhtamim136.github.io`, so a domain-level `robots.txt` cannot live here — that belongs to the main portfolio site. The `sitemap.xml` here covers only this card page.
 
 ---
 
@@ -94,12 +111,13 @@ Or use a live server extension (VS Code → Live Server) for the best experience
 
 ### Murad Hasan Tamim
 
-*CSE Student | Web Developer*
+*CSE Student at AIUB (Information Systems), Dhaka — building practical web apps*
 *Open to Internships & Freelance*
 
-[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-mhtamim136.github.io-4f46e5?style=for-the-badge)](https://mhtamim136.github.io)
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-mhtamim136.vercel.app-4f46e5?style=for-the-badge)](https://mhtamim136.vercel.app/)
 [![Profile Card](https://img.shields.io/badge/🪪_Profile_Card-Live-orange?style=for-the-badge)](https://mhtamim136.github.io/profile-card/)
 [![GitHub](https://img.shields.io/badge/GitHub-mhtamim136-181717?style=for-the-badge&logo=github)](https://github.com/mhtamim136)
+[![X](https://img.shields.io/badge/X-mhtamim136-000000?style=for-the-badge&logo=x)](https://x.com/mhtamim136)
 
 </div>
 

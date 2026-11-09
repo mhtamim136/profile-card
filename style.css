@@ -8,9 +8,18 @@
   --btn-border: #333333;
   --btn-hover: #2e2e2e;
   --icon-btn-bg: #262626;
-  --icon-btn-border: #333;
+  --icon-btn-border: #333333;
   --social-color: #cccccc;
   --social-hover: #ffffff;
+  --accent: #0891b2;
+  --accent-btn: #0e7490;
+  --accent-btn-hover: #155e75;
+  --chip-bg: #262626;
+  --chip-text: #f0f0f0;
+  --chip-hover-bg: #0e7490;
+  --badge-green: #4ade80;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --focus-ring: #38bdf8;
 }
 
 [data-theme="light"] {
@@ -20,11 +29,16 @@
   --sub-text: #555555;
   --btn-bg: #f7f7f7;
   --btn-border: #dddddd;
-  --btn-hover: #efefef;
+  --btn-hover: #ececec;
   --icon-btn-bg: #f0f0f0;
   --icon-btn-border: #cccccc;
   --social-color: #444444;
   --social-hover: #000000;
+  --chip-bg: #eef2f7;
+  --chip-text: #1e293b;
+  --chip-hover-bg: #0e7490;
+  --badge-green: #15803d;
+  --shadow: rgba(0, 0, 0, 0.12);
 }
 
 /* ===== Reset ===== */
@@ -40,19 +54,35 @@ body {
   align-items: center;
   justify-content: center;
   background-color: var(--bg);
-  font-family: 'Segoe UI', sans-serif;
-  transition: background 0.3s;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease;
+  padding: 16px;
+}
+
+/* Keyboard focus: visible everywhere, never removed without a replacement */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 
 /* ===== Card ===== */
 .card {
   background: var(--card-bg);
+  border: 1px solid var(--btn-border);
   border-radius: 16px;
-  padding: 28px 32px 36px;
+  box-shadow: 0 12px 32px var(--shadow);
+  padding: 28px 32px 24px;
   width: 100%;
   max-width: 460px;
   position: relative;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  animation: card-in 0.5s ease both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== Top Bar ===== */
@@ -74,11 +104,24 @@ body {
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.2s;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
 .icon-btn:hover {
   background: var(--btn-hover);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+.icon-btn i {
+  transition: transform 0.3s ease;
+}
+
+.icon-btn:hover i {
+  transform: rotate(15deg);
 }
 
 /* ===== Profile ===== */
@@ -87,6 +130,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 28px;
+  text-align: center;
 }
 
 .avatar {
@@ -96,6 +140,12 @@ body {
   object-fit: cover;
   margin-bottom: 14px;
   border: 3px solid var(--btn-border);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.04);
+  border-color: var(--accent);
 }
 
 .name {
@@ -108,13 +158,82 @@ body {
 .username {
   font-size: 14px;
   color: var(--sub-text);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .bio {
   font-size: 14px;
+  line-height: 1.5;
   color: var(--sub-text);
-  text-align: center;
+  max-width: 36ch;
+}
+
+.learning {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--sub-text);
+  margin-top: 8px;
+  max-width: 40ch;
+}
+
+/* ===== Skills ===== */
+.skills {
+  margin-top: 12px;
+}
+
+.skills span {
+  display: inline-block;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin: 4px;
+  font-weight: 500;
+  cursor: default;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.skills span:hover {
+  background: var(--chip-hover-bg);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Live GitHub stats — only shown when the API answers */
+.stats {
+  font-size: 12.5px;
+  color: var(--sub-text);
+  margin-top: 10px;
+}
+
+.stats strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.open-badge {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+  color: var(--badge-green);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.open-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--badge-green);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 /* ===== Link Buttons ===== */
@@ -137,82 +256,64 @@ body {
   color: var(--text);
   text-decoration: none;
   font-size: 14px;
-  transition: background 0.2s;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .link-btn:hover {
   background: var(--btn-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow);
+}
+
+.link-btn:active {
+  transform: scale(0.98);
+}
+
+.link-btn i {
+  transition: transform 0.2s ease;
+}
+
+.link-btn:hover i {
+  transform: translateX(2px);
+}
+
+/* Primary action: portfolio */
+.link-btn-primary {
+  background: var(--accent-btn);
+  border-color: var(--accent-btn);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.link-btn-primary:hover {
+  background: var(--accent-btn-hover);
+  border-color: var(--accent-btn-hover);
+}
+
+/* Hire row: mailto link + copy-email button */
+.link-row {
+  display: flex;
+  gap: 10px;
+}
+
+.link-row-main {
+  flex: 1;
+}
+
+.link-row-copy {
+  flex: 0 0 auto;
+  padding: 13px 16px;
 }
 
 /* ===== Social Icons ===== */
 .socials {
   display: flex;
   justify-content: center;
-  gap: 20px;
-}
-
-.socials a {
-  color: var(--social-color);
-  font-size: 20px;
-  transition: color 0.2s;
-  text-decoration: none;
-}
-
-.socials a:hover {
-  color: var(--social-hover);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 500px) {
-  .card {
-    margin: 16px;
-    padding: 20px 18px 28px;
-  }
-}
-
-.skills{
-    margin-top:8px;
-}
-
-.skills span{
-    display:inline-block;
-    background:#1e293b;
-
-    color:#fff;
-    padding:5px 12px;
-    border-radius:20px;
-    font-size:12px;
-    margin:4px;
-    font-weight:500;
-    transition: all 0.25s ease;
-
-}
-
-.skills span:hover{
-    background:#6366f1;
-    transform:translateY(-2px);
-    
-}
-.skills{
-    margin-top:10px;
-}
-.open-badge{
-  font-size:11px;
-  letter-spacing:0.5px;
-  margin-top:6px;
-  color:#22c55e;
-  font-weight:600;
-}
-
-/* =========================
-   SOCIAL ICON STYLING
-========================= */
-
-.socials {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 18px;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
 .socials a {
@@ -222,35 +323,81 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #1e293b;
-  color: #fff;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  color: var(--social-color);
   font-size: 16px;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Hover lift effect */
-/* .socials a:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-} */
+.socials a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px var(--shadow);
+  color: #ffffff;
+}
 
-/* Click press effect */
 .socials a:active {
   transform: scale(0.92);
 }
 
-/* Brand Colors */
+/* Brand colours on hover (order matches index.html) */
+.socials a:nth-child(1):hover { background: #0891b2; } /* Website */
+.socials a:nth-child(2):hover { background: #1877f2; } /* Facebook */
+.socials a:nth-child(3):hover { background: #e1306c; } /* Instagram */
+.socials a:nth-child(4):hover { background: #000000; } /* X */
+.socials a:nth-child(5):hover { background: #5865f2; } /* Discord */
+.socials a:nth-child(6):hover { background: #333333; } /* GitHub */
 
-.socials a:nth-child(1):hover { background: #1877f2; }   /* Facebook */
-.socials a:nth-child(2):hover { background: #e1306c; }   /* Instagram */
-.socials a:nth-child(3):hover { background: #000000; }   /* X */
-.socials a:nth-child(4):hover { background: #5865f2; }   /* Discord */
-.socials a:nth-child(5):hover { background: #333; }      /* GitHub */
-
-.socials a:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--sub-text);
+  border-top: 1px solid var(--btn-border);
+  padding-top: 16px;
 }
 
+/* ===== Toast (replaces alert()) ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px var(--shadow);
+  padding: 10px 18px;
+  font-size: 13.5px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 10;
+}
 
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
+/* ===== Responsive ===== */
+@media (max-width: 500px) {
+  .card {
+    padding: 20px 18px;
+  }
+}
+
+/* ===== Reduced motion: everything still, instantly ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .card {
+    animation: none;
+  }
+}
