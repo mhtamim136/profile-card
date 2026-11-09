@@ -30,14 +30,14 @@
   --sub-text: #555555;
   --btn-bg: #f4f5f7;
   --btn-border: #dcdfe3;
-  --btn-hover: #136e50;
+  --btn-hover: #0e805e;
   --icon-btn-bg: #ffffff;
   --icon-btn-border: #dcdfe3;
   --social-color: #444444;
   --social-hover: #000000;
   --chip-bg: #eef2f7;
   --chip-text: #1e293b;
-  --chip-hover-bg: #136e50;
+  --chip-hover-bg: #0e805e;
   --badge-green: #15803d;
   --shadow: rgba(15, 23, 42, 0.14);
   --glow-cyan: rgba(8, 145, 178, 0.12);
@@ -315,7 +315,8 @@ button:focus-visible {
 }
 
 /* ===== Link Buttons ===== */
-/* Hover effect from the reference video: the whole button fills emerald green */
+/* Hover effect from the reference video: a green fill wipes left-to-right
+   across the button. The button itself does not move — only the fill sweeps. */
 .links {
   display: flex;
   flex-direction: column;
@@ -329,7 +330,12 @@ button:focus-visible {
   justify-content: center;
   gap: 10px;
   padding: 15px 20px;
-  background: var(--btn-bg);
+  background-color: var(--btn-bg);
+  /* Left half green, right half base colour; the visible window is 50% wide,
+     so sliding its position wipes the green across from the left. */
+  background-image: linear-gradient(to right, var(--btn-hover) 50%, var(--btn-bg) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
   border: 1px solid var(--btn-border);
   border-radius: 12px;
   color: var(--text);
@@ -338,48 +344,21 @@ button:focus-visible {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: background-position 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
 }
 
 .link-btn:hover {
-  background: var(--btn-hover);
+  background-position: 0 0;
   border-color: var(--btn-hover);
   color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(19, 110, 80, 0.35);
 }
 
 .link-btn:active {
-  transform: translateY(0) scale(0.985);
+  transform: scale(0.985);
 }
 
 .link-btn i {
   font-size: 15px;
-  transition: transform 0.3s ease;
-}
-
-.link-btn:hover i {
-  transform: translateX(3px) scale(1.1);
-}
-
-/* Shine sweep across the button on hover */
-.link-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -80%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-
-.link-btn:hover::after {
-  left: 130%;
 }
 
 /* ===== Social Icons ===== */

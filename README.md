@@ -38,7 +38,7 @@ It showcases:
 - 🏷️ **Skill Tags** — C++, Java, C#, DSA
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
-- 🟢 **Emerald Hover** — every link button fills emerald green on hover, with a shine sweep and a soft lift (see the reference: buttons rest dark, hover turns green)
+- 🟢 **Emerald Hover** — the green fill wipes left-to-right across every link button on hover (exactly like the reference video: the button stays put, only the fill sweeps); light theme uses a brighter emerald so it never feels deep
 - 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot; all disabled under `prefers-reduced-motion`
 - 📱 **Fully Responsive** — looks great on mobile, tablet, and desktop
 - ♿ **Accessible** — semantic HTML (`main`, `nav`), `aria-label`s on icon-only buttons, visible keyboard focus, alt text on the photo
