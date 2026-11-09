@@ -39,7 +39,9 @@ It showcases:
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
 - 🟢 **Emerald Hover** — the green fill wipes left-to-right across every link button on hover (exactly like the reference video: the button stays put, only the fill sweeps); light theme uses a brighter emerald so it never feels deep
-- 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot; all disabled under `prefers-reduced-motion`
+- 🧲 **Magnetic Cards** — each link card drifts a few px toward the cursor and springs back on leave (same concept as the portfolio's Magnetic Buttons); off on touch devices and under reduced-motion, and the 8px cap means cards can never overlap
+- 🔦 **Cursor Spotlight** — a soft glow follows the mouse across the card (same concept as the portfolio's Cursor Spotlight), sitting behind the content
+- 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot, sibling cards fading slightly while one is hovered; all disabled under `prefers-reduced-motion`
 - 📱 **Fully Responsive** — looks great on mobile, tablet, and desktop
 - ♿ **Accessible** — semantic HTML (`main`, `nav`), `aria-label`s on icon-only buttons, visible keyboard focus, alt text on the photo
 - 🔍 **Search-ready** — meta description, canonical URL, Open Graph & X cards, and `Person` JSON-LD so Google and AI search can tell whose card this is; `llms.txt` and `sitemap.xml` included
