@@ -35,11 +35,11 @@ It showcases:
 
 - 🌗 **Dark / Light Theme Toggle** — saved in `localStorage`, falls back to the system preference when nothing is saved
 - 📤 **Share Button** — native Web Share API, with copy-link fallback (toast, no `alert()`)
-- 🏷️ **Skill Tags** — C++, Java, C#, DSA
+- 🏷️ **Skill Tags** — C++, Java, C#, JavaScript, React, Node.js (the portfolio's highlighted skills — not just 4)
 - 🔗 **Quick Links** — portfolio, resume, GitHub profile, freelance contact, repositories
 - 📄 **Resume** — direct link to the CV PDF
-- 🟢 **Emerald Hover** — the green fill wipes left-to-right across every link button on hover (exactly like the reference video: the button stays put, only the fill sweeps); light theme uses a brighter emerald so it never feels deep
-- 🧲 **Magnetic Cards** — each link card drifts a few px toward the cursor and springs back on leave (same concept as the portfolio's Magnetic Buttons); off on touch devices and under reduced-motion, and the 8px cap means cards can never overlap
+- 🟢 **Emerald Hover** — the green fill wipes slowly and smoothly left-to-right across every link button on hover (0.75s ease-in-out, exactly like the reference video); light theme uses a brighter emerald so it never feels deep
+- 🧲 **Magnetic Cards** — each link card drifts up to 10px toward the cursor and springs back on leave (same concept as the portfolio's Magnetic Buttons); off on touch devices and under reduced-motion, and only the hovered card moves so cards can never overlap
 - 🔦 **Cursor Spotlight** — a soft glow follows the mouse across the card (same concept as the portfolio's Cursor Spotlight), sitting behind the content
 - 🎞️ **Subtle Motion** — staggered card entrance, ambient background glows, gradient ring on the avatar, pulsing availability dot, sibling cards fading slightly while one is hovered; all disabled under `prefers-reduced-motion`
 - 📱 **Fully Responsive** — looks great on mobile, tablet, and desktop

@@ -100,8 +100,8 @@ if (finePointer && !reduceMotion) {
     let targetX = 0, targetY = 0, curX = 0, curY = 0;
 
     const render = () => {
-      curX += (targetX - curX) * 0.18;
-      curY += (targetY - curY) * 0.18;
+      curX += (targetX - curX) * 0.22;
+      curY += (targetY - curY) * 0.22;
       el.style.setProperty('--mx', curX.toFixed(2) + 'px');
       el.style.setProperty('--my', curY.toFixed(2) + 'px');
       if (Math.abs(targetX - curX) > 0.05 || Math.abs(targetY - curY) > 0.05) {
@@ -120,8 +120,8 @@ if (finePointer && !reduceMotion) {
       const r = el.getBoundingClientRect();
       const relX = e.clientX - (r.left + r.width / 2);
       const relY = e.clientY - (r.top + r.height / 2);
-      targetX = Math.max(-maxShift, Math.min(maxShift, relX * 0.25));
-      targetY = Math.max(-maxShift, Math.min(maxShift, relY * 0.35));
+      targetX = Math.max(-maxShift, Math.min(maxShift, relX * 0.3));
+      targetY = Math.max(-maxShift, Math.min(maxShift, relY * 0.4));
       kick();
     });
     el.addEventListener('mouseleave', () => {
@@ -131,9 +131,9 @@ if (finePointer && !reduceMotion) {
     });
   };
 
-  // 8px max shift: the 12px gap between cards can never close, so cards
-  // can never overlap while magnetised.
-  document.querySelectorAll('.link-btn').forEach((b) => magnetize(b, 8));
+  // 10px max shift: only the hovered card moves, and the gaps are 12px,
+  // so a card can never reach its neighbour, let alone overlap it.
+  document.querySelectorAll('.link-btn').forEach((b) => magnetize(b, 10));
 
   // Cursor spotlight: a soft glow follows the mouse across the card.
   const card = document.querySelector('.card');
