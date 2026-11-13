@@ -2,10 +2,9 @@
 const themeBtn = document.getElementById('themeBtn');
 const html = document.documentElement;
 
-// Saved theme wins; otherwise follow the device (system) preference.
+// Saved theme wins; otherwise default to light (not the system preference).
 const savedTheme = localStorage.getItem('theme');
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-const initialTheme = savedTheme || systemTheme;
+const initialTheme = savedTheme || 'light';
 html.setAttribute('data-theme', initialTheme);
 updateThemeIcon(initialTheme);
 
